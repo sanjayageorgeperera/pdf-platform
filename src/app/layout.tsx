@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { createClient } from '@/utils/supabase/server';
-import Link from 'next/link';
-import { signout, makeMeAdmin } from '@/app/login/actions';
 import Toast from '@/components/Toast';
 import { Suspense } from 'react';
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,35 +50,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <nav style={{ padding: '1rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.2)' }}>
-          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-            <Link href="/" style={{ fontWeight: 'bold', fontSize: '1.25rem', letterSpacing: '-0.5px' }}>PDFHub</Link>
-            <Link href="/pdfs" style={{ opacity: 0.8, textDecoration: 'none' }} className="hover:opacity-100 transition-opacity">Explore</Link>
-            <Link href="/quizzes" style={{ opacity: 0.8, textDecoration: 'none' }} className="hover:opacity-100 transition-opacity">Quizzes</Link>
-            <Link href="/discussions" style={{ opacity: 0.8, textDecoration: 'none' }} className="hover:opacity-100 transition-opacity">Discussions</Link>
-          </div>
-          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-            {user ? (
-              <>
-                 {userRole === 'admin' && (
-                  <Link href="/admin" style={{ opacity: 0.8, color: 'var(--success)' }} className="hover:opacity-100 transition-opacity">Admin</Link>
-                )}
-                <span style={{ fontSize: '0.8rem', opacity: 0.5 }}>Role: {userRole}</span>
-                {userRole === 'user' && (
-                  <form action={makeMeAdmin}>
-                    <button type="submit" style={{ padding: '0.2rem 0.5rem', background: 'var(--danger)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem' }}>Make Admin (Dev Only)</button>
-                  </form>
-                )}
-                <Link href="/dashboard" style={{ opacity: 0.8 }} className="hover:opacity-100 transition-opacity">Dashboard</Link>
-                <form action={signout}>
-                  <button type="submit" style={{ opacity: 0.8, background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', fontSize: '1rem' }} className="hover:opacity-100 transition-opacity">Logout</button>
-                </form>
-              </>
-            ) : (
-               <Link href="/login" className="btn btn-primary" style={{ padding: '0.4rem 1rem', fontSize: '0.875rem' }}>Login</Link>
-            )}
-          </div>
-        </nav>
+        <Navbar user={user} userRole={userRole} />
         <main>
           {children}
         </main>
