@@ -34,9 +34,9 @@ export default async function DashboardPage({ searchParams }: PageProps) {
 
   return (
     <div className="container animate-fade-in mt-8" style={{ paddingBottom: '4rem' }}>
-      <header className="flex justify-between items-center mb-8">
+      <header className="dashboard-header">
         <h1>Dashboard</h1>
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+        <div className="dashboard-header-actions">
           <Link href="/upload" className="btn btn-primary">Upload PDF</Link>
           <form>
             <button formAction={signout} className="btn btn-secondary">Sign Out</button>
@@ -81,7 +81,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
             </div>
             <div>
               <p style={{ fontSize: '0.85rem', opacity: 0.5, margin: '0 0 0.15rem 0' }}>Email Address</p>
-              <p style={{ fontWeight: 600, margin: 0, fontSize: '0.9rem', opacity: 0.8 }}>{user.email}</p>
+              <p style={{ fontWeight: 600, margin: 0, fontSize: '0.9rem', opacity: 0.8, overflowWrap: 'anywhere' }}>{user.email}</p>
             </div>
             <div>
               <p style={{ fontSize: '0.85rem', opacity: 0.5, margin: '0 0 0.15rem 0' }}>Account Role</p>
@@ -113,17 +113,9 @@ export default async function DashboardPage({ searchParams }: PageProps) {
                 return (
                   <div 
                     key={doc.id} 
-                    className="card hover:border-violet-500/30 transition-all duration-300"
-                    style={{ 
-                      display: 'flex', 
-                      justifyContent: 'space-between', 
-                      alignItems: 'center', 
-                      padding: '1.25rem',
-                      gap: '1rem',
-                      flexWrap: 'wrap'
-                    }}
+                    className="card dashboard-list-card hover:border-violet-500/30 transition-all duration-300"
                   >
-                    <div style={{ flex: 1, minWidth: '240px' }}>
+                    <div className="dashboard-card-content">
                       <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
                         {isPending ? (
                           <span style={{
@@ -169,7 +161,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
                       </p>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                    <div className="dashboard-card-actions">
                       {!isPending && (
                         <Link 
                           href={`/pdfs/${doc.id}`} 
