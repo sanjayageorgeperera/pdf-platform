@@ -109,7 +109,7 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
           <span>•</span>
           <span>Views: {document.view_count}</span>
           <span>•</span>
-          <a href={document.file_url} download className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }}>
+          <a href={`${document.file_url}?download=`} className="btn btn-secondary" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }}>
             Download File
           </a>
           <span>•</span>
@@ -220,8 +220,7 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
               Open PDF Reader ↗️
             </a>
             <a 
-              href={document.file_url} 
-              download 
+              href={`${document.file_url}?download=`} 
               className="btn btn-secondary"
             >
               Download PDF 📥
