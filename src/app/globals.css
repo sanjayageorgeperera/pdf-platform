@@ -630,5 +630,68 @@ h3 { font-size: 1.5rem; }
   }
 }
 
+/* Responsive PDF Viewer Styles */
+.pdf-viewer-desktop {
+  display: block;
+}
+
+.pdf-viewer-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .pdf-viewer-desktop {
+    display: none;
+  }
+  
+  .pdf-viewer-mobile {
+    display: block;
+  }
+}
+
+.mobile-reader-card {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
+}
+
+.mobile-reader-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.mobile-reader-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-reader-desc {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.mobile-reader-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mobile-reader-actions .btn {
+  width: 100%;
+  padding: 0.9rem !important;
+  font-size: 1rem !important;
+  justify-content: center;
+  align-items: center;
+}
+
+
 
 

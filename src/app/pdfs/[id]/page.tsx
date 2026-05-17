@@ -182,23 +182,52 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
         <p style={{ opacity: 0.5, fontSize: '0.875rem' }}>Top Advertisement Space</p>
       </div>
 
-      <div className="card mb-8" style={{ padding: 0, overflow: 'hidden', height: '80vh', border: '1px solid rgba(255,255,255,0.1)' }}>
-        {/* Built-in PDF Viewer */}
-        <object 
-          data={document.file_url} 
-          type="application/pdf" 
-          width="100%" 
-          height="100%"
-        >
-          <div className="flex justify-center items-center h-full" style={{ padding: '2rem', textAlign: 'center' }}>
-            <div>
-              <p className="mb-4">It appears your browser does not support built-in PDF viewing.</p>
-              <a href={document.file_url} className="btn btn-primary" target="_blank" rel="noreferrer">
-                Download the PDF instead
-              </a>
+      {/* Responsive PDF Viewer */}
+      <div className="pdf-viewer-desktop">
+        <div className="card mb-8" style={{ padding: 0, overflow: 'hidden', height: '80vh', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <object 
+            data={document.file_url} 
+            type="application/pdf" 
+            width="100%" 
+            height="100%"
+          >
+            <div className="flex justify-center items-center h-full" style={{ padding: '2rem', textAlign: 'center' }}>
+              <div>
+                <p className="mb-4">It appears your browser does not support built-in PDF viewing.</p>
+                <a href={document.file_url} className="btn btn-primary" target="_blank" rel="noreferrer">
+                  Download the PDF instead
+                </a>
+              </div>
             </div>
+          </object>
+        </div>
+      </div>
+
+      <div className="pdf-viewer-mobile">
+        <div className="mobile-reader-card">
+          <span className="mobile-reader-icon">📖</span>
+          <h3 className="mobile-reader-title">Read PDF on Mobile</h3>
+          <p className="mobile-reader-desc">
+            For the best reading experience on Android and iPhone, open this PDF in a dedicated tab or download it directly to your device.
+          </p>
+          <div className="mobile-reader-actions">
+            <a 
+              href={document.file_url} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="btn btn-primary"
+            >
+              Open PDF Reader ↗️
+            </a>
+            <a 
+              href={document.file_url} 
+              download 
+              className="btn btn-secondary"
+            >
+              Download PDF 📥
+            </a>
           </div>
-        </object>
+        </div>
       </div>
 
       {/* Ad Space after content */}
