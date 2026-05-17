@@ -204,28 +204,36 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
       </div>
 
       <div className="pdf-viewer-mobile">
-        <div className="mobile-reader-card">
-          <span className="mobile-reader-icon">📖</span>
-          <h3 className="mobile-reader-title">Read PDF on Mobile</h3>
-          <p className="mobile-reader-desc">
-            For the best reading experience on Android and iPhone, open this PDF in a dedicated tab or download it directly to your device.
-          </p>
-          <div className="mobile-reader-actions">
-            <a 
-              href={document.file_url} 
-              target="_blank" 
-              rel="noreferrer" 
-              className="btn btn-primary"
-            >
-              Open PDF Reader ↗️
-            </a>
-            <a 
-              href={`${document.file_url}?download=`} 
-              className="btn btn-secondary"
-            >
-              Download PDF 📥
-            </a>
-          </div>
+        <div className="card mb-4" style={{ padding: 0, overflow: 'hidden', height: '60vh', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <iframe 
+            src={`https://docs.google.com/gview?url=${encodeURIComponent(document.file_url)}&embedded=true`} 
+            style={{
+              width: '100%',
+              height: '100%',
+              border: 'none'
+            }}
+            title="PDF Mobile Viewer"
+          />
+        </div>
+        
+        {/* Mobile Action Buttons */}
+        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem' }}>
+          <a 
+            href={document.file_url} 
+            target="_blank" 
+            rel="noreferrer" 
+            className="btn btn-primary"
+            style={{ flex: 1, padding: '0.75rem !important', fontSize: '0.85rem !important', textAlign: 'center', justifyContent: 'center' }}
+          >
+            Fullscreen ↗️
+          </a>
+          <a 
+            href={`${document.file_url}?download=`} 
+            className="btn btn-secondary"
+            style={{ flex: 1, padding: '0.75rem !important', fontSize: '0.85rem !important', textAlign: 'center', justifyContent: 'center' }}
+          >
+            Download 📥
+          </a>
         </div>
       </div>
 
