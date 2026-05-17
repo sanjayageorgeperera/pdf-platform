@@ -795,6 +795,52 @@ h3 { font-size: 1.5rem; }
   }
 }
 
+/* Responsive PDF Card Previews */
+.pdf-card-iframe {
+  display: block;
+}
+
+.pdf-card-fallback-cover {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .pdf-card-iframe {
+    display: none !important;
+  }
+  
+  .pdf-card-fallback-cover {
+    display: flex !important;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(30, 41, 59, 0.9) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+.pdf-card-fallback-icon {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 4px 10px rgba(139, 92, 246, 0.4));
+  animation: float 3s ease-in-out infinite;
+}
+
+.pdf-card-fallback-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.8;
+}
+
+
 
 
 

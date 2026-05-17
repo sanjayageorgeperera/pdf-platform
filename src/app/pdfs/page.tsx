@@ -143,9 +143,10 @@ export default async function PdfsPage({ searchParams }: PageProps) {
                 color: 'inherit'
               }}
             >
-              {/* Premium PDF Live Cover Preview */}
+              {/* Premium PDF Live Cover Preview / Fallback */}
               <div style={{ position: 'relative', height: '150px', width: '100%', background: 'rgba(0,0,0,0.4)', borderBottom: '1px solid rgba(255,255,255,0.08)', overflow: 'hidden' }}>
                 <iframe
+                  className="pdf-card-iframe"
                   src={`${pdf.file_url}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
                   style={{
                     width: '100%',
@@ -159,6 +160,12 @@ export default async function PdfsPage({ searchParams }: PageProps) {
                   scrolling="no"
                   title={`Preview of ${pdf.title}`}
                 />
+                
+                {/* Gorgeous mobile placeholder cover */}
+                <div className="pdf-card-fallback-cover">
+                  <span className="pdf-card-fallback-icon">📄</span>
+                  <span className="pdf-card-fallback-text">Tap to Read PDF</span>
+                </div>
                 
                 {/* Dark Sleek Fading Gradient Overlay */}
                 <div style={{
