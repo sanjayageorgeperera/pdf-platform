@@ -143,29 +143,22 @@ export default async function PdfsPage({ searchParams }: PageProps) {
                 color: 'inherit'
               }}
             >
-              {/* Premium PDF Live Cover Preview / Fallback */}
-              <div style={{ position: 'relative', height: '150px', width: '100%', background: 'rgba(0,0,0,0.4)', borderBottom: '1px solid rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+              {/* Premium PDF Live Cover Preview (Works on Mobile & Desktop) */}
+              <div style={{ position: 'relative', height: '150px', width: '100%', background: 'rgba(15,23,42,0.6)', borderBottom: '1px solid rgba(255,255,255,0.08)', overflow: 'hidden' }}>
                 <iframe
-                  className="pdf-card-iframe"
-                  src={`${pdf.file_url}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                  src={`https://docs.google.com/gview?url=${encodeURIComponent(pdf.file_url)}&embedded=true`}
                   style={{
                     width: '100%',
-                    height: '220px', // taller to crop margins
+                    height: '250px', // taller to completely crop Google's bottom toolbar
                     border: 'none',
                     pointerEvents: 'none',
                     position: 'absolute',
-                    top: 0,
+                    top: '-30px', // offset to crop Google's top headers/shadows
                     left: 0
                   }}
                   scrolling="no"
                   title={`Preview of ${pdf.title}`}
                 />
-                
-                {/* Gorgeous mobile placeholder cover */}
-                <div className="pdf-card-fallback-cover">
-                  <span className="pdf-card-fallback-icon">📄</span>
-                  <span className="pdf-card-fallback-text">Tap to Read PDF</span>
-                </div>
                 
                 {/* Dark Sleek Fading Gradient Overlay */}
                 <div style={{
