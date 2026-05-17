@@ -74,46 +74,26 @@ export default async function PdfsPage({ searchParams }: PageProps) {
 
   return (
     <div className="container mt-8 animate-fade-in" style={{ paddingBottom: '4rem' }}>
-      <header className="flex justify-between items-center mb-6">
+      <header className="explore-header">
         <h1>Explore PDFs</h1>
         <Link href="/upload" className="btn btn-primary">Upload PDF</Link>
       </header>
 
       {/* Search Bar */}
-      <form action="/pdfs" method="GET" className="mb-6" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <form action="/pdfs" method="GET" className="explore-search-form">
         <input 
           type="text" 
           name="q" 
           defaultValue={q || ''} 
           placeholder="Search by title or description..." 
-          style={{
-            flex: 2,
-            minWidth: '200px',
-            padding: '0.75rem 1.25rem',
-            borderRadius: '8px',
-            border: '1px solid rgba(255,255,255,0.1)',
-            background: 'rgba(255,255,255,0.05)',
-            color: 'white',
-            fontSize: '0.95rem'
-          }}
+          className="explore-search-input"
         />
 
         {/* Language Filter Dropdown */}
         <select 
           name="lang"
           defaultValue={lang || 'All'}
-          style={{
-            flex: 1,
-            minWidth: '150px',
-            padding: '0.75rem',
-            borderRadius: '8px',
-            border: '1px solid rgba(255,255,255,0.1)',
-            background: 'rgba(0,0,0,0.3)',
-            color: 'white',
-            fontSize: '0.95rem',
-            colorScheme: 'dark',
-            cursor: 'pointer'
-          }}
+          className="explore-search-select"
         >
           <option value="All" style={{ background: '#111827', color: 'white' }}>🌐 All Languages</option>
           {languages.map((l) => (
@@ -124,14 +104,17 @@ export default async function PdfsPage({ searchParams }: PageProps) {
         </select>
 
         {category && <input type="hidden" name="category" value={category} />}
-        <button type="submit" className="btn btn-primary" style={{ padding: '0.75rem 1.5rem' }}>
-          Search
-        </button>
-        {(q || category || (lang && lang !== 'All')) && (
-          <Link href="/pdfs" className="btn btn-secondary" style={{ padding: '0.75rem 1.25rem', display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            Clear Filters
-          </Link>
-        )}
+        
+        <div className="explore-search-actions">
+          <button type="submit" className="btn btn-primary" style={{ padding: '0.75rem 1.5rem' }}>
+            Search
+          </button>
+          {(q || category || (lang && lang !== 'All')) && (
+            <Link href="/pdfs" className="btn btn-secondary" style={{ padding: '0.75rem 1.25rem', display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              Clear
+            </Link>
+          )}
+        </div>
       </form>
 
       <CategoryBar categories={categories} currentCategory={category || 'All'} searchQuery={q} languageQuery={lang} />
