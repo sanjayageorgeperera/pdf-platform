@@ -93,9 +93,14 @@ export default function Navbar({ user, userRole }: NavbarProps) {
                 </form>
               </>
             ) : (
-              <Link href="/login" className="btn btn-primary login-btn" onClick={closeMenu}>
-                Login
-              </Link>
+              <>
+                <Link href="/login" className="btn btn-secondary login-btn" onClick={closeMenu}>
+                  Login
+                </Link>
+                <Link href="/login" className="btn btn-primary login-btn" onClick={closeMenu}>
+                  Sign Up
+                </Link>
+              </>
             )}
           </div>
         </nav>
