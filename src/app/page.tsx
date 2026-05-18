@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import AdBanner from '@/components/AdBanner';
 
 export default function Home() {
   return (
@@ -32,10 +33,8 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Ad Placeholder */}
-        <div className="card mb-8" style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', borderStyle: 'dashed' }}>
-          <p style={{ opacity: 0.5, fontSize: '0.875rem' }}>Advertisement Space</p>
-        </div>
+        {/* Ad Space */}
+        <AdBanner dataAdSlot="home-banner" />
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8" style={{ textAlign: 'left' }}>
           <Link href="/pdfs" className="card hover:scale-[1.02] transition-all" style={{ textDecoration: 'none', color: 'inherit', display: 'block', border: '1px solid rgba(255,255,255,0.05)' }}>

@@ -2,6 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { addReview, deleteDocument, deleteReview, deleteQuiz } from './actions'
 import Link from 'next/link'
+import AdBanner from '@/components/AdBanner'
 
 export const dynamic = 'force-dynamic';
 
@@ -178,9 +179,7 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
       )}
 
       {/* Ad Space before content */}
-      <div className="mb-8 text-center" style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', borderStyle: 'dashed' }}>
-        <p style={{ opacity: 0.5, fontSize: '0.875rem' }}>Top Advertisement Space</p>
-      </div>
+      <AdBanner dataAdSlot="pdf-top-banner" />
 
       {/* Responsive PDF Viewer */}
       <div className="pdf-viewer-desktop">
@@ -238,9 +237,7 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
       </div>
 
       {/* Ad Space after content */}
-      <div className="mb-8 text-center" style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', borderStyle: 'dashed' }}>
-        <p style={{ opacity: 0.5, fontSize: '0.875rem' }}>Bottom Advertisement Space</p>
-      </div>
+      <AdBanner dataAdSlot="pdf-bottom-banner" />
       
       {/* Review Section */}
       <section className="card mb-8">

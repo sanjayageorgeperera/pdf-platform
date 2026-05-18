@@ -5,6 +5,7 @@ import { createClient } from '@/utils/supabase/server';
 import Toast from '@/components/Toast';
 import { Suspense } from 'react';
 import Navbar from "@/components/Navbar";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PDF Knowledge Platform",
   description: "Share and review PDFs online",
-};
+  };
 
 export const dynamic = 'force-dynamic';
 
@@ -47,8 +48,20 @@ export default async function RootLayout({
     }
   }
 
+  const adSensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-placeholder';
+
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        {adSensePublisherId !== 'ca-pub-placeholder' && (
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adSensePublisherId}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        )}
+      </head>
       <body>
         <Navbar user={user} userRole={userRole} />
         <main>
