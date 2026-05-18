@@ -61,6 +61,31 @@ export async function signout() {
   redirect('/')
 }
 
+export async function signInWithGoogle() {
+  const supabase = await createClient()
+  
+  const { headers } = await import('next/headers')
+  const reqHeaders = await headers()
+  const origin = reqHeaders.get('origin') || reqHeaders.get('referer') || 'http://localhost:3000'
+  const cleanOrigin = origin.endsWith('/') ? origin.slice(0, -1) : origin
+  
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${cleanOrigin}/auth/callback`,
+    },
+  })
+  
+  if (error) {
+    console.error("Google Auth Error:", error)
+    redirect('/login?error=Could not initiate Google authentication')
+  }
+  
+  if (data?.url) {
+    redirect(data.url)
+  }
+}
+
 export async function makeMeAdmin() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

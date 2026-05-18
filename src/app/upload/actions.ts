@@ -19,12 +19,12 @@ export async function uploadPdf(formData: FormData) {
   const category = formData.get('category') as string || 'General'
   const language = formData.get('language') as string || 'English'
 
-  if (!file || !title) {
-    redirect('/upload?error=File and Title are required')
+  if (!file || !(file instanceof File) || file.size === 0 || !file.name || !title) {
+    redirect('/upload?error=A valid PDF file and title are required')
   }
 
-  // Generate a unique filename
-  const fileExt = file.name.split('.').pop()
+  // Generate a unique filename safely
+  const fileExt = file.name.includes('.') ? file.name.split('.').pop() : 'pdf'
   const fileName = `${user.id}-${Date.now()}.${fileExt}`
   const filePath = `public/${fileName}`
 
