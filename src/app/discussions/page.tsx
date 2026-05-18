@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
+import AdBanner from '@/components/AdBanner'
 
 export const dynamic = 'force-dynamic';
 
@@ -21,9 +22,7 @@ export default async function DiscussionsPage() {
       </header>
 
       {/* Ad Space */}
-      <div className="card mb-8 text-center" style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', borderStyle: 'dashed' }}>
-        <p style={{ opacity: 0.5, fontSize: '0.875rem' }}>Discussion Thread Advertisement Space</p>
-      </div>
+      <AdBanner dataAdSlot="discussions-banner" />
 
       {error && <p style={{ color: 'var(--danger)' }}>Failed to load discussions.</p>}
 
