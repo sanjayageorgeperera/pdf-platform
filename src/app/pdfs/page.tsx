@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import CategoryBar from './CategoryBar'
+import AdBanner from '@/components/AdBanner'
 
 export const dynamic = 'force-dynamic';
 
@@ -120,9 +121,7 @@ export default async function PdfsPage({ searchParams }: PageProps) {
       <CategoryBar categories={categories} currentCategory={category || 'All'} searchQuery={q} languageQuery={lang} />
 
       {/* Ad Space */}
-      <div className="card mb-8 text-center" style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', borderStyle: 'dashed' }}>
-        <p style={{ opacity: 0.5, fontSize: '0.875rem' }}>Advertisement Banner Placement</p>
-      </div>
+      <AdBanner dataAdSlot="explore-banner" />
 
       {error && <p style={{ color: 'var(--danger)' }}>Failed to load PDFs.</p>}
 
