@@ -48,19 +48,17 @@ export default async function RootLayout({
     }
   }
 
-  const adSensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-placeholder';
+  const adSensePublisherId = 'ca-pub-5432611796767770';
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {adSensePublisherId !== 'ca-pub-placeholder' && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adSensePublisherId}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
-        )}
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adSensePublisherId}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body>
         <Navbar user={user} userRole={userRole} />
