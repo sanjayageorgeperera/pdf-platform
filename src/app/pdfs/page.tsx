@@ -121,7 +121,7 @@ export default async function PdfsPage({ searchParams }: PageProps) {
       <CategoryBar categories={categories} currentCategory={category || 'All'} searchQuery={q} languageQuery={lang} />
 
       {/* Ad Space */}
-      <AdBanner dataAdSlot="explore-banner" />
+      <AdBanner dataAdSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_PDF_TOP || 'explore-banner'} />
 
       {error && <p style={{ color: 'var(--danger)' }}>Failed to load PDFs.</p>}
 

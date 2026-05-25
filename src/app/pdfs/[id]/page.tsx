@@ -116,9 +116,15 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
           <span>•</span>
           {quiz ? (
             <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
-              <Link href={`/pdfs/${id}/quiz`} className="btn btn-primary" style={{ padding: '0.25rem 0.75rem', fontSize: '0.75rem', textDecoration: 'none' }}>
-                Take Quiz & Earn Points! 🏆
-              </Link>
+              {user ? (
+                <Link href={`/pdfs/${id}/quiz`} className="btn btn-primary" style={{ padding: '0.25rem 0.75rem', fontSize: '0.75rem', textDecoration: 'none' }}>
+                  Take Quiz & Earn Points! 🏆
+                </Link>
+              ) : (
+                <Link href={`/login?redirect=/pdfs/${id}/quiz`} className="btn btn-primary" style={{ padding: '0.25rem 0.75rem', fontSize: '0.75rem', textDecoration: 'none', background: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.15)', color: 'rgba(255, 255, 255, 0.8)' }}>
+                  🔒 Login to Take Quiz
+                </Link>
+              )}
               {userRole === 'admin' && (
                 <form action={deleteQuiz.bind(null, id, quiz.id)} style={{ display: 'inline' }}>
                   <button 
@@ -179,7 +185,7 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
       )}
 
       {/* Ad Space before content */}
-      <AdBanner dataAdSlot="pdf-top-banner" />
+      <AdBanner dataAdSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_PDF_TOP || 'pdf-top-banner'} />
 
       {/* Responsive PDF Viewer */}
       <div className="pdf-viewer-desktop">
@@ -237,7 +243,7 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
       </div>
 
       {/* Ad Space after content */}
-      <AdBanner dataAdSlot="pdf-bottom-banner" />
+      <AdBanner dataAdSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_PDF_BOTTOM || 'pdf-bottom-banner'} />
       
       {/* Review Section */}
       <section className="card mb-8">
