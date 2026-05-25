@@ -22,7 +22,7 @@ export default async function DiscussionsPage() {
       </header>
 
       {/* Ad Space */}
-      <AdBanner dataAdSlot="discussions-banner" />
+      <AdBanner dataAdSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_PDF_BOTTOM || 'discussions-banner'} />
 
       {error && <p style={{ color: 'var(--danger)' }}>Failed to load discussions.</p>}
 
