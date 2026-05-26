@@ -20,27 +20,13 @@ export default function AdBanner({ dataAdSlot, style, width: customWidth, height
 
     // If active network is Adsterra
     if (network === 'adsterra') {
-      containerRef.current.innerHTML = ''
-      
       const width = customWidth || 728
       const height = customHeight || 90
       
-      // Calculate scale if screen is smaller than ad width
-      const scale = window.innerWidth < width ? window.innerWidth / width : 1;
-      
-      const adWrapper = document.createElement('div');
-      adWrapper.style.transform = `scale(${scale})`;
-      adWrapper.style.transformOrigin = 'center top';
-      adWrapper.style.width = `${width}px`;
-      adWrapper.style.height = `${height}px`;
-      adWrapper.style.display = 'flex';
-      adWrapper.style.justifyContent = 'center';
-      
-      // Adsterra keys are 32-character hexadecimal hashes
       const isAdsterraKeyValid = /^[a-f0-9]{32}$/i.test(dataAdSlot)
 
       if (!isAdsterraKeyValid) {
-        // If not a valid key, render a premium layout placeholder
+        containerRef.current.innerHTML = ''
         const placeholder = document.createElement('div')
         Object.assign(placeholder.style, {
           width: '100%',
@@ -57,38 +43,62 @@ export default function AdBanner({ dataAdSlot, style, width: customWidth, height
           textAlign: 'center'
         })
         placeholder.innerText = `📢 ADSTERRA BANNER (Paste 32-char key in .env.local: "${dataAdSlot}")`
-        adWrapper.appendChild(placeholder)
-        containerRef.current.appendChild(adWrapper)
-        containerRef.current.style.minHeight = `${height * scale}px`
+        containerRef.current.appendChild(placeholder)
         return
       }
 
-      // Create configuration script
-      const scriptConfig = document.createElement('script')
-      scriptConfig.type = 'text/javascript'
-      scriptConfig.innerHTML = `
-        atOptions = {
-          'key' : '${dataAdSlot}',
-          'format' : 'iframe',
-          'height' : ${height},
-          'width' : ${width},
-          'params' : {}
-        };
-      `
+      // Calculate scale if screen is smaller than ad width
+      const scale = window.innerWidth < width ? window.innerWidth / width : 1;
+      
+      containerRef.current.innerHTML = ''
+      const adWrapper = document.createElement('div')
+      adWrapper.style.transform = `scale(${scale})`
+      adWrapper.style.transformOrigin = 'center top'
+      adWrapper.style.width = `${width}px`
+      adWrapper.style.height = `${height}px`
+      adWrapper.style.display = 'flex'
+      adWrapper.style.justifyContent = 'center'
 
-      // Create invoke script
-      const scriptInvoke = document.createElement('script')
-      scriptInvoke.type = 'text/javascript'
-      scriptInvoke.src = `//www.highperformanceformat.com/${dataAdSlot}/invoke.js`
+      const iframe = document.createElement('iframe')
+      iframe.width = width.toString()
+      iframe.height = height.toString()
+      iframe.style.border = 'none'
+      iframe.style.overflow = 'hidden'
+      iframe.scrolling = 'no'
 
-      adWrapper.appendChild(scriptConfig)
-      adWrapper.appendChild(scriptInvoke)
+      adWrapper.appendChild(iframe)
       containerRef.current.appendChild(adWrapper)
       
       containerRef.current.style.height = `${height * scale}px`
       containerRef.current.style.minHeight = `${height * scale}px`
+
+      const doc = iframe.contentWindow?.document
+      if (doc) {
+        doc.open()
+        doc.write(`
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <style>body { margin: 0; padding: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; background: transparent; }</style>
+            </head>
+            <body>
+              <script type="text/javascript">
+                atOptions = {
+                  'key' : '${dataAdSlot}',
+                  'format' : 'iframe',
+                  'height' : ${height},
+                  'width' : ${width},
+                  'params' : {}
+                };
+              </script>
+              <script type="text/javascript" src="//www.highperformanceformat.com/${dataAdSlot}/invoke.js"></script>
+            </body>
+          </html>
+        `)
+        doc.close()
+      }
     }
-  }, [dataAdSlot, network])
+  }, [dataAdSlot, network, customWidth, customHeight])
 
   useEffect(() => {
     if (network === 'adsense' && !isDev && typeof window !== 'undefined') {
