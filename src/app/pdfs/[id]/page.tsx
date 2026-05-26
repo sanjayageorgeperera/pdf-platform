@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { addReview, deleteDocument, deleteReview, deleteQuiz } from './actions'
 import Link from 'next/link'
 import AdBanner from '@/components/AdBanner'
+import InterstitialAd from '@/components/InterstitialAd'
 
 export const dynamic = 'force-dynamic';
 
@@ -186,6 +187,9 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
 
       {/* Ad Space before content */}
       <AdBanner dataAdSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_PDF_TOP || 'pdf-top-banner'} />
+
+      {/* Popup Interstitial Ad */}
+      <InterstitialAd dataAdSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_INTERSTITIAL || 'interstitial-banner'} />
 
       {/* Responsive PDF Viewer */}
       <div className="pdf-viewer-desktop">
