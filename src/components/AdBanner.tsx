@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from 'react'
 interface AdBannerProps {
   dataAdSlot: string
   style?: React.CSSProperties
+  width?: number
+  height?: number
 }
 
-export default function AdBanner({ dataAdSlot, style }: AdBannerProps) {
+export default function AdBanner({ dataAdSlot, style, width: customWidth, height: customHeight }: AdBannerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isDev, setIsDev] = useState(false)
   const network = process.env.NEXT_PUBLIC_AD_NETWORK || 'adsterra'
@@ -20,8 +22,8 @@ export default function AdBanner({ dataAdSlot, style }: AdBannerProps) {
     if (network === 'adsterra') {
       containerRef.current.innerHTML = ''
       
-      const width = 728
-      const height = 90
+      const width = customWidth || 728
+      const height = customHeight || 90
       
       // Calculate scale if screen is smaller than ad width
       const scale = window.innerWidth < width ? window.innerWidth / width : 1;

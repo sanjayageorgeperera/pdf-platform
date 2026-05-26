@@ -6,6 +6,7 @@ import Toast from '@/components/Toast';
 import { Suspense } from 'react';
 import Navbar from "@/components/Navbar";
 import Script from "next/script";
+import SideAdsWrapper from "@/components/SideAdsWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +63,7 @@ export default async function RootLayout({
       </head>
       <body>
         <Navbar user={user} userRole={userRole} />
+        <SideAdsWrapper />
         <main>
           {children}
         </main>
