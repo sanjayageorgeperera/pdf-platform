@@ -23,6 +23,17 @@ export default function AdBanner({ dataAdSlot, style }: AdBannerProps) {
       const width = 728
       const height = 90
       
+      // Calculate scale if screen is smaller than ad width
+      const scale = window.innerWidth < width ? window.innerWidth / width : 1;
+      
+      const adWrapper = document.createElement('div');
+      adWrapper.style.transform = `scale(${scale})`;
+      adWrapper.style.transformOrigin = 'center top';
+      adWrapper.style.width = `${width}px`;
+      adWrapper.style.height = `${height}px`;
+      adWrapper.style.display = 'flex';
+      adWrapper.style.justifyContent = 'center';
+      
       // Adsterra keys are 32-character hexadecimal hashes
       const isAdsterraKeyValid = /^[a-f0-9]{32}$/i.test(dataAdSlot)
 
@@ -44,7 +55,9 @@ export default function AdBanner({ dataAdSlot, style }: AdBannerProps) {
           textAlign: 'center'
         })
         placeholder.innerText = `📢 ADSTERRA BANNER (Paste 32-char key in .env.local: "${dataAdSlot}")`
-        containerRef.current.appendChild(placeholder)
+        adWrapper.appendChild(placeholder)
+        containerRef.current.appendChild(adWrapper)
+        containerRef.current.style.minHeight = `${height * scale}px`
         return
       }
 
@@ -66,10 +79,25 @@ export default function AdBanner({ dataAdSlot, style }: AdBannerProps) {
       scriptInvoke.type = 'text/javascript'
       scriptInvoke.src = `//www.highperformanceformat.com/${dataAdSlot}/invoke.js`
 
-      containerRef.current.appendChild(scriptConfig)
-      containerRef.current.appendChild(scriptInvoke)
+      adWrapper.appendChild(scriptConfig)
+      adWrapper.appendChild(scriptInvoke)
+      containerRef.current.appendChild(adWrapper)
+      
+      containerRef.current.style.height = `${height * scale}px`
+      containerRef.current.style.minHeight = `${height * scale}px`
     }
   }, [dataAdSlot, network])
+
+  useEffect(() => {
+    if (network === 'adsense' && !isDev && typeof window !== 'undefined') {
+      try {
+        // @ts-ignore
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (err) {
+        console.error('AdSense error', err);
+      }
+    }
+  }, [network, isDev, dataAdSlot])
 
   // If using AdSense
   if (network === 'adsense') {

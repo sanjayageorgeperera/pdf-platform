@@ -34,7 +34,7 @@ export default function Home() {
         </div>
 
         {/* Ad Space */}
-        <AdBanner dataAdSlot="home-banner" />
+        <AdBanner dataAdSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_HOME || "home-banner"} />
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8" style={{ textAlign: 'left' }}>
           <Link href="/pdfs" className="card hover:scale-[1.02] transition-all" style={{ textDecoration: 'none', color: 'inherit', display: 'block', border: '1px solid rgba(255,255,255,0.05)' }}>
