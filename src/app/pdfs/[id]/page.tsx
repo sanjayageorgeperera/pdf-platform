@@ -4,6 +4,7 @@ import { addReview, deleteDocument, deleteReview, deleteQuiz } from './actions'
 import Link from 'next/link'
 import AdBanner from '@/components/AdBanner'
 import InterstitialAd from '@/components/InterstitialAd'
+import FullscreenButton from '@/components/FullscreenButton'
 
 export const dynamic = 'force-dynamic';
 
@@ -193,7 +194,10 @@ export default async function PdfViewerPage({ params, searchParams }: PageProps)
 
       {/* Responsive PDF Viewer */}
       <div className="pdf-viewer-desktop">
-        <div className="card mb-8" style={{ padding: 0, overflow: 'hidden', height: '80vh', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <FullscreenButton targetId="pdf-desktop-container" />
+        </div>
+        <div id="pdf-desktop-container" className="card mb-8" style={{ padding: 0, overflow: 'hidden', height: '80vh', border: '1px solid rgba(255,255,255,0.1)', background: 'var(--background)' }}>
           <object 
             data={document.file_url} 
             type="application/pdf" 
